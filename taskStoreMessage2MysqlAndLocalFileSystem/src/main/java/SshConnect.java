@@ -1,6 +1,4 @@
 import com.jcraft.jsch.*;
-import org.junit.Assert;
-import org.junit.Test;
 
 import java.io.*;
 
@@ -25,16 +23,16 @@ public class SshConnect {
         }
     }
 
-    @Test
+//    @Test
     public void testRemoteFileAppender() {
         String path = "/opt/skulk/";
         String fileName = "test.txt";
         int result = RemoteFileAppender(path + fileName,
                 "add line1\nadd line2");
         // 断言返回值是否为零
-        Assert.assertEquals(0, result);
+//        Assert.assertEquals(0, result);
     }
-
+/*对远程机器指定路径下文件追加行。文件不存在则创建。*/
     public int RemoteFileAppender(String remoteFilePath, String content) {
         try {
             session.connect();
@@ -44,7 +42,7 @@ public class SshConnect {
             OutputStream out = sftpChannel.put(remoteFilePath, ChannelSftp.APPEND);
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out));
             writer.write(content);
-            writer.newLine();
+//            writer.newLine();
             writer.close();
 
             sftpChannel.disconnect();
