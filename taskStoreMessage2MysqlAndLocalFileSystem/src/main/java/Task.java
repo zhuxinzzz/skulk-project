@@ -17,7 +17,7 @@ public class Task {
     }
 
     public void saveFileMetaInfoToMysql(String fileName, String path) {
-        //        写远程机器的mysql
+        //        写机器的mysql
         MessageStoreDB messageStoreDB = new MessageStoreDB();
         messageStoreDB.insertRow(fileName, path, "0");
     }

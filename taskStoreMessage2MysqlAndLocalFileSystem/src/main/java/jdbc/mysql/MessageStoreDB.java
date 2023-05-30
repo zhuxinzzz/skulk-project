@@ -13,7 +13,7 @@ import java.sql.SQLException;
  * @Date 29/05/2023
  */
 public class MessageStoreDB {
-    public  String getMD5(String input) {
+    public String getMD5(String input) {
         try {
             // 创建 MessageDigest 对象，指定为 MD5算法
             MessageDigest md = MessageDigest.getInstance("MD5");
@@ -33,7 +33,8 @@ public class MessageStoreDB {
             throw new RuntimeException(e);
         }
     }
-//filename,path,versionId
+
+    //filename,path,versionId
     public int insertRow(String fn, String fp, String vid) {
         Connection connection = null;
         try {
@@ -50,7 +51,7 @@ public class MessageStoreDB {
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "insert into messageStore(fileName,filePath,versionId) values(?,?,?);");
             preparedStatement.setString(1, "messageStore");
-            String[] pps={fn,fp,vid};
+            String[] pps = {fn, fp, vid};
             for (int i = 0; i < pps.length; i++) {
                 preparedStatement.setString(i + 1, pps[i]);
             }
