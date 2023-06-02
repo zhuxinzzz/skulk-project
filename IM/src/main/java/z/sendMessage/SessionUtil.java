@@ -2,7 +2,6 @@ package z.sendMessage;
 
 import io.netty.channel.Channel;
 import io.netty.channel.group.ChannelGroup;
-import p0724.entity.Session;
 
 import java.util.ArrayList;
 import java.util.List;
