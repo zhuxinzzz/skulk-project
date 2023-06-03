@@ -11,7 +11,7 @@
     <modules>
         <module>DBAgent</module>
         <module>IM</module>
-<!--        <module>taskStoreMessage2MysqlAndLocalFileSystem</module>-->
+        <module>taskStoreMessage2MysqlAndLocalFileSystem</module>
     </modules>
 
     <properties>
