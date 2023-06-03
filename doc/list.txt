@@ -1,0 +1,127 @@
+project,skulk,architecture diagram
+=
+#概念架构：
+
+#详细结构：各个（业务）功能，和数据流图（详细架构）
+。注册：
+    client2（userInfo{}）=》login
+        login=》gateway
+            gateway=》dbagent
+
+。登录：
+
+。战斗匹配功能（1v1）：
+    client2（match req）=》gateway
+        gateway（match req）=》game
+            gateway（match req）=》game
+                game()
+            返回：game（matchInfo）=》gateway
+                gateway（matchInfo）=》client2
+    client2（match req）=》gateway
+        gateway（selectedTarget）=》mq=》game
+            返回：game（battle-server）=》mq=》gateway
+                gateway（battle-server）=》client2
+。battle功能：
+    准备用户数据：直接从etcd获取redis的地址，读redis。，获取战斗双方的数据。
+    （姓名、能量、道具...）
+    到battle服务器
+    战斗：
+    	前端提交战斗操作：普攻、技能
+    	后端battle做计算，后端battle返回给clients
+    	前端显示攻击结果：
+    定位：
+    	每隔5s，
+    		前端发送定位给后端battle，
+    		后端battle，判断是否在50m之内，
+    			是，继续战斗
+    			否，战斗结算
+    战斗结算：
+        battle(计算结果、gateway服务器)=》clients
+        前端展示，连接到新的gateway服务器
+
+#mq-cluster
+kafka
+
+#mysql-cluster
+1主3从，主写从读
+tps，400。qps：12000(4000*3)
+写：dbAgent，1主节点
+	。监控主mysql查询次数和响应时间，通过 MySQL 的 PERFORMANCE_SCHEMA，响应时间是否过长：
+        是：写满4m一个CSV文件，bulk-load导入到mysql。（tps：40k。）
+        否：直接写入mysql
+读：dbAgent，3从节点，
+	。访问lvs，算法用：lc(最小连接)。
+        dbAgent的请求，被转发到连接数最小的从节点
+
+#mq，消息类型:
+。发送：
+login：
+	dbagent：singup
+	dbagent：signin
+gateway：
+	shop：buy
+	shop：sale
+	game：match
+game：
+	dbagent：match，（用redis）
+（1v1匹配，同时在匹配状态，选交集）
+shop：
+	dbagent：buy
+	dbagent：sale
+。返回：
+dbagent：
+	login：signup
+	login：signin（用户自己的数据）
+	shop：buy
+	shop：sale
+	game:match
+game：
+	gateway：match
+shop：
+	gateway：buy
+	gateway：sale
+
+
+#mysql：
+    表结构
+#redis：
+    结构
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
