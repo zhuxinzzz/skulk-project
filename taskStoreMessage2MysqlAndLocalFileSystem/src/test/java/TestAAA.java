@@ -1,6 +1,9 @@
 
+import taskSpringBoot.entity.Task;
 import jdbc.mysql.MessageStoreDB;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
 
 
 /**
@@ -34,6 +37,19 @@ public class TestAAA {
         messageStoreDB.insertRow(fileName+"8","/home/ubuntu/1"+fileName,"0");
 
     }
+@Test
+    public void testStringSplite() {
+        String value = "file1-contentcontentcontentcontentcontent";
+        String[] split = value.split("-");
+        System.out.println(Arrays.deepToString(split));
+    for (String s : value.split("-")) {
+        System.out.println(s);
+    }
 
+        String fileName = split[0];
+        String contents = split[1];
+        System.out.println(fileName+"\t"+contents);
+
+    }
 
 }

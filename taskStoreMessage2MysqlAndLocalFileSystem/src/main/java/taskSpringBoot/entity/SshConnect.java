@@ -1,4 +1,8 @@
+package taskSpringBoot.entity;
+
 import com.jcraft.jsch.*;
+import org.junit.jupiter.api.Test;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 
@@ -6,35 +10,39 @@ import java.io.*;
  * @author zzz
  * @Date 26/05/2023
  */
+@Component
 public class SshConnect {
     static String host = "s1";
     static String username = "ubuntu";
     static String password = "Qwe123";
-    static JSch jsch = new JSch();
-    static Session session;
+      JSch jsch;
+      Session session;
 
-    static {
-        try {
-            session = jsch.getSession(username, host, 2333);
-            session.setPassword(password);
-            session.setConfig("StrictHostKeyChecking", "no");
-        } catch (JSchException e) {
-            throw new RuntimeException(e);
-        }
-    }
+//    static {
+//        try {
+//
+//
+//        } catch (JSchException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
-//    @Test
+    @Test
     public void testRemoteFileAppender() {
         String path = "/opt/skulk/";
         String fileName = "test.txt";
-        int result = RemoteFileAppender(path + fileName,
-                "add line1\nadd line2");
+        int result = RemoteFileAppender( fileName,
+                "add line1\nadd line2\n");
         // 断言返回值是否为零
 //        Assert.assertEquals(0, result);
     }
 /*对远程机器指定路径下文件追加行。文件不存在则创建。*/
     public int RemoteFileAppender(String remoteFilePath, String content) {
         try {
+            jsch = new JSch();
+            session = jsch.getSession(username, host, 2333);
+            session.setPassword(password);
+            session.setConfig("StrictHostKeyChecking", "no");
             session.connect();
             ChannelSftp sftpChannel = (ChannelSftp) session.openChannel("sftp");
             sftpChannel.connect();
