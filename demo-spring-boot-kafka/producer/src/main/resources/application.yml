@@ -1,7 +1,0 @@
-spring:
-  kafka:
-    bootstrap-servers: s1:29092
-  application:
-    name: producer
-server:
-  port: 11002
