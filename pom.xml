@@ -13,7 +13,7 @@
         <module>IM</module>
         <module>Task</module>
         <module>DBAgent</module>
-        <module>skukl-api</module>
+        <module>skulk-api</module>
     </modules>
     <!--spring-boot==============================================-->
     <!--    <parent>-->
@@ -30,6 +30,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka_2.13</artifactId>
+            <version>3.0.0</version>
+        </dependency>
         <!--        <dependency>-->
         <!--            <groupId>io.netty</groupId>-->
         <!--            <artifactId>netty-all</artifactId>-->

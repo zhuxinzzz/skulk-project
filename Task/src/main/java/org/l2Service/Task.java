@@ -1,6 +1,7 @@
-package org.entity;
+package org.l2Service;
 
-import org.l9.jdbc.mysql.MessageStoreDB;
+import org.l9.SshConnect;
+import org.l9.jdbc.MessageStoreDB;
 
 /**
  * @author zzz

@@ -15,7 +15,7 @@ public class Producer {
         KafkaTemplate<String, String> kafkaTemplate;
 
         void send() {
-                kafkaTemplate.send("requestUserOfflineMessageRecord", "aaa");
+                kafkaTemplate.send("requestUserOfflineMessageRecord", "Services");
 
         }
 

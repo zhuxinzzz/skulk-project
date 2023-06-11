@@ -1,4 +1,4 @@
-package org.l9.jdbc.mysql;
+package org.l9.jdbc;
 
 
 import java.io.IOException;

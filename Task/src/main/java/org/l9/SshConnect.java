@@ -1,6 +1,8 @@
-package org.entity;
+package org.l9;
 
 import com.jcraft.jsch.*;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.io.*;
 
@@ -11,7 +13,7 @@ import java.io.*;
 public class SshConnect {
     static String host = "s1";
     static String username = "ubuntu";
-    static String password = "Qwe123";
+    static String password = "q123";
       JSch jsch;
       Session session;
 
@@ -24,13 +26,15 @@ public class SshConnect {
 //        }
 //    }
 
+    @Test
     public void testRemoteFileAppender() {
         String path = "/opt/skulk/";
         String fileName = "test.txt";
-        int result = RemoteFileAppender( fileName,
+        int result = RemoteFileAppender(
+                fileName,
                 "add line1\nadd line2\n");
         // 断言返回值是否为零
-//        Assert.assertEquals(0, result);
+        Assert.assertEquals(0, result);
     }
 /*对远程机器指定路径下文件追加行。文件不存在则创建。*/
     public int RemoteFileAppender(String remoteFilePath, String content) {

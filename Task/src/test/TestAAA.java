@@ -23,7 +23,7 @@ public class TestAAA {
 //@Test
     public void testWriteMysql() {
         Task task = new Task();
-        task.saveFileMetaInfoToMysql(fileName, "aaa");
+        task.saveFileMetaInfoToMysql(fileName, "Services");
     }
 
 

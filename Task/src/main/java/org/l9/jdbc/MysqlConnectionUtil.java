@@ -1,4 +1,4 @@
-package org.l9.jdbc.mysql;
+package org.l9.jdbc;
 
 
 import java.io.File;
@@ -35,8 +35,6 @@ public class MysqlConnectionUtil {
         }
         return connectionUtil;
     }
-
-
 //    @Test
 //    public void testGetInstance() {
 //        try {
