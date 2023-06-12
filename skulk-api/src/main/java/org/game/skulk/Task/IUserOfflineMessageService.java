@@ -6,5 +6,6 @@ package org.game.skulk.Task;
  */
 public interface IUserOfflineMessageService {
     public String getUserOfflineMessage(String userName);
+    public String getUserOfflineMessageMessageRecord(String userName);
     public String writeRedisUserOfflineMessageRecord(String userName,String record);
 }
