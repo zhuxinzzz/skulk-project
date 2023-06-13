@@ -1,4 +1,4 @@
-package messageServer;
+package org.messageServer;
 //import io.netty.handler.codec.http.websocketx.WebSocketUtil;
 //import io.netty.handler.codec.http.websocketx.WebSocketUtil;
 import io.netty.buffer.Unpooled;
