@@ -1,14 +1,33 @@
 package org.messageServer;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Data
 public class ClientMessage {
+    private String date;
     private String toUserId;
 //    private String toUserName;
     private String fromUserId;
 //    private String fromUserName;
     private String msg;
+
+    @Override
+    public String toString() {
+        char flag1 = '~';
+        char flag2 = 'q';
+//        if ()
+        return flag1+date +flag2+
+                '\n'+
+                msg
+                 ;
+    }
+    public ClientMessage(String date, String toUserId, String fromUserId, String msg) {
+        this.date = date;
+        this.toUserId = toUserId;
+        this.fromUserId = fromUserId;
+        this.msg = msg;
+    }
 
     public ClientMessage(String toUserId, String fromUserId, String msg) {
         this.toUserId = toUserId;

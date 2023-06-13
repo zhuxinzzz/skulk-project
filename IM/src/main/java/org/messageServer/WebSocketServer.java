@@ -16,6 +16,7 @@ import io.netty.handler.stream.ChunkedWriteHandler;
 
 public class WebSocketServer {
     public static void main(String[] args) throws InterruptedException {
+        System.out.println("IM-server start");
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
@@ -35,16 +36,18 @@ public class WebSocketServer {
                     // WebSocket 数据压缩扩展
                     pipeline.addLast("date-compression",new WebSocketServerCompressionHandler());
                     //鉴权处理器
-                    pipeline.addLast("auth", new WebSocketAuthHandler());
+                    pipeline.addLast("auth", new messageServer.WebSocketAuthHandler());
                     // WebSocket 握手、控制帧处理
                     pipeline.addLast("websocket",new WebSocketServerProtocolHandler("/imServer",
                             null, true));
+//                    pipeline.addLast( new WebSocketServerHandler());
                     //消息转发处理器
                     pipeline.addLast("im",new messageForwardingWebSocketServerHandler());
                 }
             });
             ChannelFuture channelFuture = serverBootstrap.bind(9999).sync();
             channelFuture.channel().closeFuture().sync();
+
         } finally {
             workerGroup.shutdownGracefully();
             bossGroup.shutdownGracefully();

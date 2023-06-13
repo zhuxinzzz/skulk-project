@@ -24,15 +24,15 @@ public class IMServer {
     public static void main(String[] args) {
         IMServer imServer = new IMServer();
         /*启动消息转发服务器*/
-//        imServer.startTheMessageForwardingServer();
+        imServer.startTheMessageForwardingServer();
         /*获取用户离线消息*/
-//        imServer.getUserOfflineMessageRecords("user1");
+        imServer.getUserOfflineMessageRecords("user1");
         /*生产写入聊天文件消息*/
-//        imServer.productionWritesChatFileMessages("file1.bak", "line1line2");
+        imServer.productionWritesChatFileMessages("file1.bak", "line1line2");
     }
 
 
-    void productionWritesChatFileMessages1(String fileName, String content) {
+    static void productionWritesChatFileMessages1(String fileName, String content) {
         Properties props = new Properties();
         //broker地址
 //		props.put("bootstrap.servers", "slave1:9092,slave2:9092,slave3:9092");
@@ -50,12 +50,13 @@ public class IMServer {
         props.put("value.serializer",
                 "org.apache.kafka.common.serialization.StringSerializer");
         Producer<String, String> producer = new KafkaProducer<>(props);
+
         producer.send(new ProducerRecord<String, String>(
                 "saveOfflineMessages", fileName, content));
 
     }
 
-    void productionWritesChatFileMessages(String fileName, String content) {
+    public static void productionWritesChatFileMessages(String fileName, String content) {
         new Thread(() -> productionWritesChatFileMessages1(fileName, content)).start();
     }
 
@@ -85,7 +86,7 @@ public class IMServer {
 
     }
 
-    void startTheMessageForwardingServer() {
+    public void startTheMessageForwardingServer() {
         new Thread(() -> {
             Class<?> cls = null;
             try {
