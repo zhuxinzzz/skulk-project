@@ -8,6 +8,7 @@
         <artifactId>skulk-project</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
+
     <groupId>org.game.skulk</groupId>
     <artifactId>IM</artifactId>
 <!--    <version>1.0-SNAPSHOT</version>-->

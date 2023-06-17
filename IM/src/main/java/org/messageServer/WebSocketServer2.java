@@ -14,15 +14,14 @@ import io.netty.handler.codec.http.websocketx.extensions.compression.WebSocketSe
 import io.netty.handler.stream.ChunkedWriteHandler;
 import lombok.SneakyThrows;
 import org.junit.Test;
-import org.messageServer.channelHandler.Auth;
-import org.messageServer.channelHandler.messageForwardingWebSocketServerHandler;
+import org.messageServer.channelHandler.*;
 
 import java.lang.reflect.Method;
 import java.util.concurrent.CountDownLatch;
 
-public class WebSocketServer {
+public class WebSocketServer2 {
     public static void main(String[] args) throws InterruptedException {
-        System.out.println("IM-server start");
+        System.out.println("IMServer start...");
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
@@ -33,8 +32,7 @@ public class WebSocketServer {
                 @Override
                 public void initChannel(SocketChannel ch) throws Exception {
                     // HTTP 协议解析，解码和编码，用于握手阶段
-//                    ch.pipeline().addLast("http-codec", new HttpServerCodec());
-                    ch.pipeline().addLast(new HttpServerCodec());
+                    ch.pipeline().addLast("http-codec", new HttpServerCodec());
                     //http请求聚合处理，多个HTTP请求或响应聚合为一个FullHtppRequest或FullHttpResponse
                     ch.pipeline().addLast("aggregator", new HttpObjectAggregator(65536));
                     //大数据的分区传输
@@ -49,9 +47,13 @@ public class WebSocketServer {
                             null, true));
                     //pipeline.addLast(new WebSocketServerHandler());
 
+                    ch.pipeline().addLast(new OfflineMessageProcessing());
                     //消息转发处理器
-                    ch.pipeline().addLast("im", new messageForwardingWebSocketServerHandler());
+//                    ch.pipeline().addLast("im", new MyWebSocketServerHandler());
+//                    ch.pipeline().addLast("im2", new MyWebSocketServerHandler2());
+//                    ch.pipeline().addLast("im99", new messageForwardingWebSocketServerHandler());
 //                    ch.pipeline().addLast( new WebSocketServerHandler());
+                    ch.pipeline().addLast(new MessageForwarding());
                 }
             });
             ChannelFuture channelFuture = serverBootstrap.bind(9999).sync();
@@ -70,7 +72,7 @@ public class WebSocketServer {
             @Override
             public void run() {
                 Class<?> cls = null;
-                cls = Class.forName("org.messageServer.WebSocketServer");
+                cls = Class.forName("org.messageServer.WebSocketServer2");
                 Method mainMethod = cls.getDeclaredMethod("main", String[].class);
                 mainMethod.invoke(null, (Object) new String[0]);
             }

@@ -14,6 +14,11 @@ public class SshConnect {
     static String host = "s1";
     static String username = "ubuntu";
     static String password = "q123";
+
+//    static String host = "vm1";
+//    static String username = "azureuser";
+//    static String password = "QwErvm11!";
+
       JSch jsch;
       Session session;
 

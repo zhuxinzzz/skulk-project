@@ -15,6 +15,8 @@ public class L2Services {
     public static final String PREFIX_USER_OFFLINE_MESSAGE_RECORD = "userOfflineMessage";
     /*key_separator，分隔符默认用'-'*/
     public static final String SEPARATOR = "-";
+
+
     L9ToRedis l9ToRedis = new L9ToRedis();
 
     public String getUserOfflineMessageRecords(String userName) {
@@ -31,6 +33,5 @@ public class L2Services {
         l9ToRedis.set(
                 PREFIX_USER_OFFLINE_MESSAGE_RECORD + SEPARATOR + userName,
                 lineNumberAndFileName);
-
     }
 }

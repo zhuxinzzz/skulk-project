@@ -36,6 +36,7 @@ public class MessageStoreDB {
 
     //filename,path,versionId
     public int insertRow(String fn, String fp, String vid) {
+
         Connection connection = null;
         try {
             connection = MysqlConnectionUtil.getInstance().getConnection();

@@ -1,4 +1,4 @@
-package org.messageServer;
+package org.messageServer.util;
 
 public class Session {
 

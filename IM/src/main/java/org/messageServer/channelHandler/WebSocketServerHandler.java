@@ -1,4 +1,4 @@
-package org.messageServer;
+package org.messageServer.channelHandler;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;

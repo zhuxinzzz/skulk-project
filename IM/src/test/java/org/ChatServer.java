@@ -1,23 +1,9 @@
 package org;
 
-import org.IMServer;
-import org.java_websocket.WebSocket;
-import org.java_websocket.WebSocketAdapter;
-import org.java_websocket.client.WebSocketClient;
-import org.java_websocket.handshake.Handshakedata;
-import org.java_websocket.handshake.ServerHandshake;
 import org.junit.Test;
-import org.messageServer.WebSocketServer;
 
-import java.net.InetSocketAddress;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
 
 /**
  * @author zzz
@@ -30,16 +16,14 @@ public class ChatServer {
         Date date = new Date();
         SimpleDateFormat format = new SimpleDateFormat("EEE-MMM-dd-HH:mm:ss-zzz-yyyy");
         String dateString = format.format(date);
-//        dateString = dateString.replace(" ", "-");
-
         System.out.println(dateString);
+
     }
 
     @Test
     public void test() {
         IMServer imServer = new IMServer();
         imServer.startTheMessageForwardingServer();
-
     }
 
 //    @Test

@@ -1,4 +1,4 @@
-package org.l9.jdbc.entity;
+package org.l9.jdbc.pojo;
 
 import lombok.Data;
 

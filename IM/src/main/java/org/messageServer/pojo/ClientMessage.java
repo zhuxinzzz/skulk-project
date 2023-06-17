@@ -1,4 +1,4 @@
-package org.messageServer;
+package org.messageServer.pojo;
 
 import lombok.Data;
 import lombok.ToString;

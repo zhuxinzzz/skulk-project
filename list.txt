@@ -116,7 +116,14 @@ shop：
 
 
 
+#离线消息，一行的格式：
+时间|toId|fromId
+line1lne2
 
+message：
+    date
+    flag
+    content
 
 
 

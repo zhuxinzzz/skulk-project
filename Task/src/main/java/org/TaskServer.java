@@ -1,5 +1,7 @@
 package org;
 
+import com.google.gson.Gson;
+import com.mysql.cj.x.protobuf.Mysqlx;
 import org.apache.dubbo.config.*;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -9,6 +11,7 @@ import org.junit.Test;
 //import org.l2Service.IUserOfflineMessageQueryServiceImpl;
 import org.l2Service.Task;
 import org.l2Service.serviceImlp.UserOfflineMessageServiceImpl;
+import org.messageServer.pojo.ClientMessage;
 
 import java.time.Duration;
 import java.util.Collections;
@@ -24,16 +27,19 @@ public class TaskServer {
     public static void main(String[] args) {
         TaskServer taskServer = new TaskServer();
         /*发布接口*/
-        taskServer.publishCheckOfflineMessageFunction();
+//        taskServer.publishCheckOfflineMessageFunction();
+//        taskServer.publishAServiceForGettingOfflineMessages();
         /*消费mq的消息*/
-//        taskServer.consumerMessagesAreWrittenToTheFileSystem();
+        taskServer.consumerMessagesAreWrittenToTheFileSystem();
     }
+
     /*应用配置*/
     public static ApplicationConfig applicationConfig = new ApplicationConfig();
     /*注册中心配置*/
     public static RegistryConfig registryConfig = new RegistryConfig();
     /*协议配置*/
     public static ProtocolConfig protocolConfig = new ProtocolConfig();
+
     static {
         /**/
         applicationConfig.setName("dubbo-api-Task-providerAndConsumer");
@@ -47,6 +53,31 @@ public class TaskServer {
     public void testReleaseService() {
         TaskServer taskServer = new TaskServer();
         taskServer.publishCheckOfflineMessageFunction();
+    }
+
+    /*publish a service for getting offline messages*/
+    void publishAServiceForGettingOfflineMessages() {
+        new Thread(() -> publishAServiceToGetOfflineMessages1()).run();
+    }
+
+    private void publishAServiceToGetOfflineMessages1() {
+        //rpc service provider
+        protocolConfig.setPort(20890);
+        /*服务配置*/
+        ServiceConfig<IUserOfflineMessageService> serviceConfig = new ServiceConfig<>();
+        serviceConfig.setInterface(IUserOfflineMessageService.class);
+        serviceConfig.setRef(new UserOfflineMessageServiceImpl());
+        serviceConfig.setApplication(applicationConfig);
+        serviceConfig.setRegistry(registryConfig);
+
+        serviceConfig.setProtocol(protocolConfig);
+        serviceConfig.export();
+
+        try {
+            new CountDownLatch(1).await();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     void publishCheckOfflineMessageFunction() {
@@ -67,15 +98,20 @@ public class TaskServer {
         serviceConfig.setProtocol(protocolConfig);
         serviceConfig.export();
 
-//        try {
-//            new CountDownLatch(1).await();
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
+        try {
+            new CountDownLatch(1).await();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     void consumerMessagesAreWrittenToTheFileSystem() {
         new Thread(() -> consumerMessagesAreWrittenToTheFileSystem1()).run();
+    }
+
+    @Test
+    public void testConsumeMQ() {
+        consumerMessagesAreWrittenToTheFileSystem1();
     }
 
     void consumerMessagesAreWrittenToTheFileSystem1() {
@@ -104,10 +140,13 @@ public class TaskServer {
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(100));
             for (ConsumerRecord<String, String> record : records) {
+                Gson gson = new Gson();
+                ClientMessage clientMessage = gson.fromJson(record.value(), ClientMessage.class);
+
                 System.out.printf("offset = %d, key = %s, value = %s\n",
-                        record.offset(), record.key(), record.value());
+                        record.offset(), record.key(), clientMessage);
                 //write fs
-                Task.AppendContentToTheMessageFileOfTheRemoteMachine(record.key(), record.value());
+//                Task.AppendContentToTheMessageFileOfTheRemoteMachine(record.key(), record.value());
             }
         }
 

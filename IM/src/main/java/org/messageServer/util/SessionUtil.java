@@ -1,4 +1,4 @@
-package org.messageServer;
+package org.messageServer.util;
 
 import io.netty.channel.Channel;
 import io.netty.channel.group.ChannelGroup;
@@ -10,8 +10,10 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class SessionUtil {
     public static final Map<String, Channel> userMap = new ConcurrentHashMap<>();
+
     private static final Map<String, ChannelGroup> groupMap = new ConcurrentHashMap<>();
     private static final Map<String, Session> sessionMap = new ConcurrentHashMap<>();
+
     public static void bindSession(Session session, Channel channel) {
         userMap.put(session.getUserId(), channel);
         sessionMap.put(session.getUserId(), session);

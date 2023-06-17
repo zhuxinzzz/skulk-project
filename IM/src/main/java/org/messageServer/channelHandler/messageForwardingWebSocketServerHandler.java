@@ -1,4 +1,4 @@
-package org.messageServer;
+package org.messageServer.channelHandler;
 
 import com.google.gson.Gson;
 import io.netty.channel.Channel;
@@ -7,15 +7,17 @@ import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 import org.IMServer;
+import org.messageServer.pojo.ClientMessage;
+import org.messageServer.util.SessionUtil;
 
 
 public class messageForwardingWebSocketServerHandler extends SimpleChannelInboundHandler<WebSocketFrame> {
     private static final Gson GSON = new Gson();
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-
         System.out.println("Client connected: " + ctx.channel().remoteAddress());
-        String welcomeMsg = "Welcome to my WebSocket server!";
+        String welcomeMsg = "Welcome to WebSocket server!";
+        System.out.println(welcomeMsg);
         ctx.channel().writeAndFlush(new TextWebSocketFrame(welcomeMsg));
 
 //        System.out.println("Client connected: " + ctx.channel().remoteAddress());
@@ -47,8 +49,8 @@ public class messageForwardingWebSocketServerHandler extends SimpleChannelInboun
                 ctx.channel().writeAndFlush(new TextWebSocketFrame(
                         GSON.toJson(new ClientMessage(date,toUserId, fromUserId, "对方未在线" + msg))));
                 //Task，存储离线消息
-                String storedMessage = clientMessage.toString();
-                IMServer.productionWritesChatFileMessages("file1.bak", storedMessage);
+//                String storedMessage = clientMessage.toString();
+//                IMServer.productionWritesChatFileMessages("file1.bak", storedMessage);
 
                 //mq
 
