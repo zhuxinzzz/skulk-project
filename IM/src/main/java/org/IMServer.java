@@ -5,14 +5,10 @@ import org.apache.dubbo.config.ReferenceConfig;
 import org.apache.dubbo.config.RegistryConfig;
 import org.apache.dubbo.config.bootstrap.DubboBootstrap;
 import org.apache.dubbo.config.utils.SimpleReferenceCache;
-import org.apache.kafka.clients.producer.KafkaProducer;
-import org.apache.kafka.clients.producer.Producer;
-import org.apache.kafka.clients.producer.ProducerRecord;
-import org.game.skulk.Task.IUserOfflineMessageService;
+import org.game.skulk.api.Task.IUserOfflineMessageService;
 import org.junit.Test;
 
 import java.lang.reflect.Method;
-import java.util.Properties;
 
 /**
  * @author zzz

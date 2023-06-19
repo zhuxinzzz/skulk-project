@@ -6,7 +6,6 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
-import org.IMServer;
 import org.messageServer.pojo.ClientMessage;
 import org.messageServer.util.SessionUtil;
 
@@ -42,7 +41,7 @@ public class messageForwardingWebSocketServerHandler extends SimpleChannelInboun
             String date = clientMessage.getDate();
             String toUserId = clientMessage.getToUserId();
             String fromUserId = clientMessage.getFromUserId();
-            String msg = clientMessage.getMsg();
+            String msg = clientMessage.getContent();
 
             Channel toChannel = SessionUtil.getChannel(clientMessage.getToUserId());
             if (toChannel == null) {

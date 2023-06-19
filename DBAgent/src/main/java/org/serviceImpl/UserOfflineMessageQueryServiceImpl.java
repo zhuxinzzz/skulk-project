@@ -2,7 +2,7 @@ package org.serviceImpl;
 
 
 import org.dao.redis.L2Services;
-import org.game.skulk.DBAgent.IUserOfflineMessageQueryService;
+import org.game.skulk.api.DBAgent.IUserOfflineMessageQueryService;
 
 /**
  * @author zzz

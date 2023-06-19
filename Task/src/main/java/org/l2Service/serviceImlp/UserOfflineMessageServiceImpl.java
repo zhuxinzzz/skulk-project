@@ -1,13 +1,10 @@
 package org.l2Service.serviceImlp;
 
-import org.TaskServer;
-import org.apache.dubbo.config.ApplicationConfig;
+import org.RpcTask;
 import org.apache.dubbo.config.ReferenceConfig;
 import org.apache.dubbo.config.RegistryConfig;
-import org.apache.dubbo.config.bootstrap.DubboBootstrap;
-import org.apache.dubbo.config.utils.SimpleReferenceCache;
-import org.game.skulk.DBAgent.IUserOfflineMessageQueryService;
-import org.game.skulk.Task.IUserOfflineMessageService;
+import org.game.skulk.api.DBAgent.IUserOfflineMessageQueryService;
+import org.game.skulk.api.Task.IUserOfflineMessageService;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -21,7 +18,7 @@ public class UserOfflineMessageServiceImpl implements IUserOfflineMessageService
         System.out.println("getUserOfflineMessage");
         /*consumer*/
         ReferenceConfig<IUserOfflineMessageQueryService> referenceConfig = new ReferenceConfig<>();
-        referenceConfig.setApplication(TaskServer.applicationConfig);
+        referenceConfig.setApplication(RpcTask.applicationConfig);
         /*设置zk的地址和端口号。作为注册中心，存放服务提供端的地址和端口号。*/
         referenceConfig.setRegistry(new RegistryConfig("zookeeper://s1:2181"));
         /*设置服务的接口，定义完成rpc调用的参数和返回值，统一规范。*/
@@ -41,7 +38,7 @@ public class UserOfflineMessageServiceImpl implements IUserOfflineMessageService
         System.out.println("getUserOfflineMessageMessageRecord");
         /*consumer*/
         ReferenceConfig<IUserOfflineMessageQueryService> referenceConfig = new ReferenceConfig<>();
-        referenceConfig.setApplication(TaskServer.applicationConfig);
+        referenceConfig.setApplication(RpcTask.applicationConfig);
         /*设置zk的地址和端口号。作为注册中心，存放服务提供端的地址和端口号。*/
         referenceConfig.setRegistry(new RegistryConfig("zookeeper://s1:2181"));
         /*设置服务的接口，定义完成rpc调用的参数和返回值，统一规范。*/

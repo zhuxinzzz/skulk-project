@@ -3,8 +3,7 @@ package org.l2Service;
 import org.apache.dubbo.config.ApplicationConfig;
 import org.apache.dubbo.config.RegistryConfig;
 import org.apache.dubbo.config.ServiceConfig;
-import org.game.skulk.DBAgent.IUserOfflineMessageQueryService;
-import org.game.skulk.Task.IUserOfflineMessageService;
+import org.game.skulk.api.DBAgent.IUserOfflineMessageQueryService;
 
 import java.util.concurrent.CountDownLatch;
 

@@ -1,38 +1,68 @@
 package org.messageServer.pojo;
 
-import lombok.Data;
+
 import lombok.ToString;
 
-@Data
 public class ClientMessage {
     private String date;
     private String toUserId;
 //    private String toUserName;
     private String fromUserId;
 //    private String fromUserName;
-    private String msg;
+    private String content;
 
-    @Override
+
     public String toString() {
-        char flag1 = '~';
-        char flag2 = 'q';
-//        if ()
-        return flag1+date +flag2+
-                '\n'+
-                msg
-                 ;
+        return "ClientMessage{" +
+                "date='" + date + '\'' +
+                ", toUserId='" + toUserId + '\'' +
+                ", fromUserId='" + fromUserId + '\'' +
+                ", content='" + content + '\'' +
+                '}';
     }
-    public ClientMessage(String date, String toUserId, String fromUserId, String msg) {
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getToUserId() {
+        return toUserId;
+    }
+
+    public void setToUserId(String toUserId) {
+        this.toUserId = toUserId;
+    }
+
+    public String getFromUserId() {
+        return fromUserId;
+    }
+
+    public void setFromUserId(String fromUserId) {
+        this.fromUserId = fromUserId;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public ClientMessage(String date, String toUserId, String fromUserId, String content) {
         this.date = date;
         this.toUserId = toUserId;
         this.fromUserId = fromUserId;
-        this.msg = msg;
+        this.content = content;
     }
 
-    public ClientMessage(String toUserId, String fromUserId, String msg) {
+    public ClientMessage(String toUserId, String fromUserId, String content) {
         this.toUserId = toUserId;
         this.fromUserId = fromUserId;
-        this.msg = msg;
+        this.content = content;
     }
 
 //    private String currentDate;

@@ -13,7 +13,6 @@ import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketServerHandshaker;
 import io.netty.handler.codec.http.websocketx.WebSocketServerHandshakerFactory;
 import io.netty.util.CharsetUtil;
-import org.IMServer;
 import org.messageServer.pojo.ClientMessage;
 import org.messageServer.util.SessionUtil;
 
@@ -69,7 +68,7 @@ public class MyWebSocketServerHandler2 extends SimpleChannelInboundHandler<Objec
         String date = clientMessage.getDate();
         String toUserId = clientMessage.getToUserId();
         String fromUserId = clientMessage.getFromUserId();
-        String messageMsg = clientMessage.getMsg();
+        String messageMsg = clientMessage.getContent();
 
         Channel toChannel = SessionUtil.getChannel(toUserId);
         if (toChannel == null) {
@@ -139,7 +138,7 @@ public class MyWebSocketServerHandler2 extends SimpleChannelInboundHandler<Objec
             String date = clientMessage.getDate();
             String toUserId = clientMessage.getToUserId();
             String fromUserId = clientMessage.getFromUserId();
-            String msg = clientMessage.getMsg();
+            String msg = clientMessage.getContent();
 
             Channel toChannel = SessionUtil.getChannel(toUserId);
             if (toChannel == null) {

@@ -37,7 +37,7 @@ public class SshConnect {
         String fileName = "test.txt";
         int result = RemoteFileAppender(
                 fileName,
-                "add line1\nadd line2\n");
+                "add line98\nadd line99\n");
         // 断言返回值是否为零
         Assert.assertEquals(0, result);
     }
@@ -55,7 +55,7 @@ public class SshConnect {
             OutputStream out = sftpChannel.put(remoteFilePath, ChannelSftp.APPEND);
             BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(out));
             writer.write(content);
-//            writer.newLine();
+            writer.newLine();
             writer.close();
 
             sftpChannel.disconnect();
