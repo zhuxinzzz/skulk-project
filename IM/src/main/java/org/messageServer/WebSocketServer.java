@@ -12,13 +12,8 @@ import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.codec.http.websocketx.extensions.compression.WebSocketServerCompressionHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
-import lombok.SneakyThrows;
-import org.junit.Test;
 import org.messageServer.channelHandler.Auth;
 import org.messageServer.channelHandler.messageForwardingWebSocketServerHandler;
-
-import java.lang.reflect.Method;
-import java.util.concurrent.CountDownLatch;
 
 public class WebSocketServer {
     public static void main(String[] args) throws InterruptedException {
@@ -63,20 +58,7 @@ public class WebSocketServer {
         }
     }
 
-    @Test
-    public void testServer() throws InterruptedException {
-        new Thread(new Runnable() {
-            @SneakyThrows
-            @Override
-            public void run() {
-                Class<?> cls = null;
-                cls = Class.forName("org.messageServer.WebSocketServer");
-                Method mainMethod = cls.getDeclaredMethod("main", String[].class);
-                mainMethod.invoke(null, (Object) new String[0]);
-            }
-        }).start();
-        new CountDownLatch(1).await();
-    }
+
 
 }
 

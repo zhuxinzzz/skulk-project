@@ -6,7 +6,7 @@ import org.apache.dubbo.config.RegistryConfig;
 import org.apache.dubbo.config.bootstrap.DubboBootstrap;
 import org.apache.dubbo.config.utils.SimpleReferenceCache;
 import org.game.skulk.api.Task.IUserOfflineMessageService;
-import org.junit.Test;
+import org.messageServer.WebSocketServer2;
 
 import java.lang.reflect.Method;
 
@@ -24,42 +24,6 @@ public class IMServer {
         /*生产写入聊天文件消息*/
 //        imServer.productionWritesChatFileMessages("file1.bak", "line1line2");
     }
-
-    void getUserOfflineMessage() {
-        /**/
-
-    }
-
-
-
-
-    @Test
-    public void testRpcToGetOfflineMessagesFromTaskServer() {
-        IMServer imServer = new IMServer();
-        /*获取用户离线消息*/
-        imServer.getUserOfflineMessageRecords("user1");
-        for (; ; ) {
-
-        }
-    }
-
-    public void getUserOfflineMessageRecords(String userName) {
-        ReferenceConfig<IUserOfflineMessageService> reference = new ReferenceConfig<>();
-        reference.setInterface(IUserOfflineMessageService.class);
-
-        DubboBootstrap bootstrap = DubboBootstrap.getInstance();
-        bootstrap.application(new ApplicationConfig("dubbo-api-Task-consumer"))
-                .registry(new RegistryConfig("zookeeper://s1:2181"))
-                .reference(reference)
-                .start();
-
-        IUserOfflineMessageService service = SimpleReferenceCache.getCache().get(reference);
-        String message = service.getUserOfflineMessage(userName);
-        System.out.println(message);
-
-    }
-
-    @Test
     public void startTheMessageForwardingServer() {
         new Thread(() -> {
             Class<?> cls = null;

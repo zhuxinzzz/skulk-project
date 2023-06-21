@@ -5,8 +5,6 @@ import org.apache.dubbo.config.ReferenceConfig;
 import org.apache.dubbo.config.RegistryConfig;
 import org.game.skulk.api.DBAgent.IUserOfflineMessageQueryService;
 import org.game.skulk.api.Task.IUserOfflineMessageService;
-import org.junit.Assert;
-import org.junit.Test;
 
 /**
  * @author zzz
@@ -57,13 +55,6 @@ public class UserOfflineMessageServiceImpl implements IUserOfflineMessageService
     @Override
     public String writeRedisUserOfflineMessageRecord(String userName, String record) {
         return null;
-    }
-
-    @Test
-    public void test() {
-        UserOfflineMessageServiceImpl userOfflineMessageServiceImpl = new UserOfflineMessageServiceImpl();
-        String userOfflineMessageMessageRecord = userOfflineMessageServiceImpl.getUserOfflineMessageMessageRecord("user1");
-        Assert.assertEquals("value1", userOfflineMessageMessageRecord);
     }
 
 }

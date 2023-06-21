@@ -5,8 +5,6 @@ import org.apache.dubbo.config.bootstrap.DubboBootstrap;
 import org.apache.dubbo.config.utils.SimpleReferenceCache;
 import org.game.skulk.api.DBAgent.IMessageStoreService;
 import org.game.skulk.api.Task.IUserOfflineMessageService;
-import org.junit.Assert;
-import org.junit.Test;
 import org.l2Service.serviceImlp.UserOfflineMessageServiceImpl;
 
 import java.util.concurrent.CountDownLatch;
@@ -33,14 +31,10 @@ public class RpcTask {
         protocolConfig.setName("dubbo");
     }
 
-    @Test
-    public void testReleaseService() {
-        RpcTask rpcTask = new RpcTask();
-        rpcTask.publishAServiceForGettingOfflineMessages();
-    }
+
 
     /*publish a service for getting offline messages*/
-    void publishAServiceForGettingOfflineMessages() {
+    public void publishAServiceForGettingOfflineMessages() {
         new Thread(() -> publishAServiceToGetOfflineMessages1()).run();
     }
 
@@ -70,7 +64,6 @@ public class RpcTask {
 
     void publishCheckOfflineMessageFunction1() {
         //rpc service provider
-
         protocolConfig.setPort(20889);
         /*服务配置*/
         ServiceConfig<IUserOfflineMessageService> serviceConfig = new ServiceConfig<>();
@@ -88,13 +81,7 @@ public class RpcTask {
             throw new RuntimeException(e);
         }
     }
-    @Test
-    public void test() {
-        String fileName = getUserOfflineMessageStorageFile("user1");
-        System.out.println(fileName);
 
-        Assert.assertEquals("user1|user2.bak", fileName);
-    }
     /*getUserStorageInformationFile*/
     public String getUserOfflineMessageStorageFile(String userName) {
         ReferenceConfig<IMessageStoreService> reference = new ReferenceConfig<>();

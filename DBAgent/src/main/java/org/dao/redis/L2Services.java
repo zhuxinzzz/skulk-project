@@ -3,8 +3,6 @@ package org.dao.redis;
 
 import org.dao.redis.pojo.UserOfflineMessageRecord;
 import org.dao.redis.pojo.UserOfflineMessageStorageFile;
-import org.junit.Assert;
-import org.junit.Test;
 
 import java.util.Objects;
 

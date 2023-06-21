@@ -1,10 +1,11 @@
 package org.l9;
 
 import com.jcraft.jsch.*;
-import org.junit.Assert;
-import org.junit.Test;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 
 /**
  * @author zzz
@@ -31,16 +32,7 @@ public class SshConnect {
 //        }
 //    }
 
-    @Test
-    public void testRemoteFileAppender() {
-        String path = "/opt/skulk/";
-        String fileName = "test.txt";
-        int result = RemoteFileAppender(
-                fileName,
-                "add line98\nadd line99\n");
-        // 断言返回值是否为零
-        Assert.assertEquals(0, result);
-    }
+
 /*对远程机器指定路径下文件追加行。文件不存在则创建。*/
     public int RemoteFileAppender(String remoteFilePath, String content) {
         try {

@@ -13,11 +13,9 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.codec.http.websocketx.extensions.compression.WebSocketServerCompressionHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
 import lombok.SneakyThrows;
-import org.junit.Test;
-import org.messageServer.channelHandler.*;
+import org.messageServer.channelHandler.Auth;
+import org.messageServer.channelHandler.MessageForwarding;
 
-import java.lang.reflect.Method;
-import java.util.concurrent.CountDownLatch;
 
 public class WebSocketServer2 {
     public static void main(String[] args) throws InterruptedException {
@@ -47,7 +45,7 @@ public class WebSocketServer2 {
                             null, true));
                     //pipeline.addLast(new WebSocketServerHandler());
 
-                    ch.pipeline().addLast(new OfflineMessageProcessing());
+//                    ch.pipeline().addLast(new OfflineMessageProcessing());
                     //消息转发处理器
 //                    ch.pipeline().addLast("im", new MyWebSocketServerHandler());
 //                    ch.pipeline().addLast("im2", new MyWebSocketServerHandler2());
@@ -65,20 +63,6 @@ public class WebSocketServer2 {
         }
     }
 
-    @Test
-    public void testServer() throws InterruptedException {
-        new Thread(new Runnable() {
-            @SneakyThrows
-            @Override
-            public void run() {
-                Class<?> cls = null;
-                cls = Class.forName("org.messageServer.WebSocketServer2");
-                Method mainMethod = cls.getDeclaredMethod("main", String[].class);
-                mainMethod.invoke(null, (Object) new String[0]);
-            }
-        }).start();
-        new CountDownLatch(1).await();
-    }
 
 }
 

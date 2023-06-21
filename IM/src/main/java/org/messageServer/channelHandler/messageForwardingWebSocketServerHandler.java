@@ -6,6 +6,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
+import org.RpcIM;
 import org.messageServer.pojo.ClientMessage;
 import org.messageServer.util.SessionUtil;
 
@@ -48,8 +49,8 @@ public class messageForwardingWebSocketServerHandler extends SimpleChannelInboun
                 ctx.channel().writeAndFlush(new TextWebSocketFrame(
                         GSON.toJson(new ClientMessage(date,toUserId, fromUserId, "对方未在线" + msg))));
                 //Task，存储离线消息
-//                String storedMessage = clientMessage.toString();
-//                IMServer.productionWritesChatFileMessages("file1.bak", storedMessage);
+                String storedMessage = clientMessage.toString();
+                RpcIM.productionWritesChatFileMessages("file1.bak", storedMessage);
 
                 //mq
 

@@ -65,6 +65,7 @@ public class Auth extends SimpleChannelInboundHandler<FullHttpRequest> {
 
                 /**/
                 String offlineMessages = getOfflineMessages(userName);
+
                 // 给 ChannelHandlerContext 添加一个键值对
                 ctx.attr(AttributeKey.valueOf("offlineMessage")).set(offlineMessages);
 //                // 获取 ChannelHandlerContext 中的键值对

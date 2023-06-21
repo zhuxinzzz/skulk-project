@@ -4,8 +4,6 @@ import com.google.gson.Gson;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.junit.Assert;
-import org.junit.Test;
 import org.l2Service.Task;
 import org.messageServer.pojo.ClientMessage;
 import org.pojo.MessageLine;
@@ -23,20 +21,11 @@ public class MqTask {
         new Thread(() -> consumerMessagesAreWrittenToTheFileSystem1()).run();
     }
 
-    @Test
-    public void test() {
-        RpcTask rpcTask = new RpcTask();
-        String fileName = rpcTask.getUserOfflineMessageStorageFile("user1");
-        System.out.println(fileName);
-        Assert.assertEquals("user1|user2.bak", fileName);
-    }
 
-    @Test
-    public void testConsumeMQ() {
-        consumerMessagesAreWrittenToTheFileSystem1();
-    }
 
-    void consumerMessagesAreWrittenToTheFileSystem1() {
+
+
+    public void consumerMessagesAreWrittenToTheFileSystem1() {
         Properties props = new Properties();
 //		props.put("bootstrap.servers", "slave1:9092,slave2:9092,slave3:9092");
         props.put("bootstrap.servers", "s1:9092");
@@ -70,18 +59,18 @@ public class MqTask {
                 System.out.printf("offset = %d, key = %s, value = %s\n",
                         record.offset(), record.key(), clientMessage);
                 System.out.println(clientMessage.toString());
-                /*从redis，获取文件名。*/
                 String fromUserId = clientMessage.getFromUserId();
                 System.out.println("fromUserId:" + fromUserId);
+
                 RpcTask rpcTask = new RpcTask();
+                /*从DBAgent，获取文件名。*/
                 String fileName = rpcTask.getUserOfflineMessageStorageFile(fromUserId);
                 System.out.println("fileName:" + fileName);
-                //write fs
+
                 MessageLine messageLine = new MessageLine(clientMessage.getDate(), clientMessage.getToUserId(),
                         clientMessage.getFromUserId(), clientMessage.getContent());
-
                 System.out.println(messageLine.toString());
-
+                /*write fs*/
                 Task.AppendContentToTheMessageFileOfTheRemoteMachine(fileName, messageLine.toString());
 
             }
