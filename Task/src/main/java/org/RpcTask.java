@@ -31,14 +31,19 @@ public class RpcTask {
         protocolConfig.setName("dubbo");
     }
 
-
-
-    /*publish a service for getting offline messages*/
-    public void publishAServiceForGettingOfflineMessages() {
-        new Thread(() -> publishAServiceToGetOfflineMessages1()).run();
+    /**
+     * publish all dubbo service.
+     */
+    public void publishAllServices() {
+        new Thread(() -> publishAServiceForGettingOfflineMessages()).run();
     }
 
-    private void publishAServiceToGetOfflineMessages1() {
+    /**
+     * publish dubbo service.
+     *
+     * @see org.l2Service.serviceImlp.UserOfflineMessageServiceImpl
+     */
+    private void publishAServiceForGettingOfflineMessages() {
         //rpc service provider
         protocolConfig.setPort(20890);
         /*服务配置*/
@@ -58,17 +63,19 @@ public class RpcTask {
         }
     }
 
-    public void publishCheckOfflineMessageFunction() {
-        new Thread(() -> publishCheckOfflineMessageFunction1()).run();
-    }
-
-    void publishCheckOfflineMessageFunction1() {
+    /**
+     * publish all dubbo service.
+     *
+     * @see org.l2Service.serviceImlp.UserOfflineMessageServiceImpl
+     */
+    void publishCheckOfflineMessageFunction() {
         //rpc service provider
         protocolConfig.setPort(20889);
         /*服务配置*/
         ServiceConfig<IUserOfflineMessageService> serviceConfig = new ServiceConfig<>();
         serviceConfig.setInterface(IUserOfflineMessageService.class);
         serviceConfig.setRef(new UserOfflineMessageServiceImpl());
+
         serviceConfig.setApplication(applicationConfig);
         serviceConfig.setRegistry(registryConfig);
 
@@ -82,14 +89,18 @@ public class RpcTask {
         }
     }
 
-    /*getUserStorageInformationFile*/
+
+    /**
+     * @param userName
+     * @return fileName
+     */
     public String getUserOfflineMessageStorageFile(String userName) {
         ReferenceConfig<IMessageStoreService> reference = new ReferenceConfig<>();
         reference.setInterface(IMessageStoreService.class);
 
         DubboBootstrap bootstrap = DubboBootstrap.getInstance();
-        bootstrap.application(new ApplicationConfig("dubbo-api-dbAgent-getFN-consumer"))
-                .registry(new RegistryConfig("zookeeper://s1:2181")).reference(reference).start();
+        bootstrap.application(new ApplicationConfig("dubbo-api-dbAgent-getFN-consumer")).registry(new RegistryConfig("zookeeper://s1:2181")).reference(reference).start();
+
         IMessageStoreService service = SimpleReferenceCache.getCache().get(reference);
 
         String fileName = service.getUserOfflineMessageStorageFile(userName);
@@ -97,6 +108,5 @@ public class RpcTask {
         return fileName;
 
     }
-
 
 }

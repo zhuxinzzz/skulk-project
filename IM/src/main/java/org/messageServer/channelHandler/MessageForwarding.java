@@ -6,6 +6,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
+import org.MqIM;
 import org.RpcIM;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
@@ -70,10 +71,8 @@ public class MessageForwarding extends SimpleChannelInboundHandler<WebSocketFram
 
     private void saveMessage(ClientMessage clientMessage) {
         String messageString = GSON.toJson(clientMessage);
-        RpcIM.productionWritesChatFileMessages("didn't work", messageString);
+        MqIM.productionWritesChatFileMessages("didn't work", messageString);
     }
-
-
 
     public void handleOfflineMessages() {
 //        检查,如果有离线消息,就从Task服务获取离线消息字符串

@@ -1,4 +1,4 @@
-package org.messageServer.channelHandler;
+package org.messageServer.channelHandler.tmp;
 
 import com.google.gson.Gson;
 import io.netty.channel.Channel;
@@ -6,6 +6,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
+import org.MqIM;
 import org.RpcIM;
 import org.messageServer.pojo.ClientMessage;
 import org.messageServer.util.SessionUtil;
@@ -50,12 +51,8 @@ public class messageForwardingWebSocketServerHandler extends SimpleChannelInboun
                         GSON.toJson(new ClientMessage(date,toUserId, fromUserId, "对方未在线" + msg))));
                 //Task，存储离线消息
                 String storedMessage = clientMessage.toString();
-                RpcIM.productionWritesChatFileMessages("file1.bak", storedMessage);
+                MqIM.productionWritesChatFileMessages("file1.bak", storedMessage);
 
-                //mq
-
-
-                //
             } else {
                 toChannel.writeAndFlush(new TextWebSocketFrame(requestText));
             }

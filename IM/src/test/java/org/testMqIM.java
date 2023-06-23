@@ -6,11 +6,11 @@ import org.junit.Test;
  * @author zzz
  * @Date 20/06/2023
  */
-public class testMq {
+public class testMqIM {
     MqIM mqim = new MqIM();
 
     @Test
-    public void test() {
+    public void testStoringMessagesToTheFileSystem() {
         mqim.saveOfflineMessages("aaa.txt", "line1\nline2");
     }
 }

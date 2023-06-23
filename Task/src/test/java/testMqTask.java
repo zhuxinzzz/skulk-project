@@ -7,9 +7,13 @@ import org.junit.Test;
  * @author zzz
  * @Date 20/06/2023
  */
-public class testMq {
+public class testMqTask {
     MqTask mqTask = new MqTask();
 
+    @Test
+    public void 测试保存离线消息() {
+        mqTask.startTheConsumerToWriteTextToTheFilesystem();
+    }
     @Test
     public void test() {
         RpcTask rpcTask = new RpcTask();

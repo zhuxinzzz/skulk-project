@@ -20,11 +20,11 @@
     </properties>
     <dependencies>
         <!-- MySQL 8.0.21 驱动 -->
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>8.0.21</version>
-            </dependency>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.21</version>
+        </dependency>
 
         <!-- MyBatis -->
         <dependency>
@@ -32,7 +32,7 @@
             <artifactId>mybatis</artifactId>
             <version>3.5.6</version>
         </dependency>
-
+        <!--skulk-api-->
         <dependency>
             <groupId>org.game.skulk</groupId>
             <artifactId>skulk-api</artifactId>
@@ -46,7 +46,6 @@
         </dependency>
 
     </dependencies>
-
 
 
     <!--    <dependencies>-->
@@ -74,19 +73,19 @@
     <!--    </dependencies>-->
     <build>
         <plugins>
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-jar-plugin</artifactId>-->
-<!--                <version>3.2.0</version>-->
-<!--                <configuration>-->
-<!--                    <archive>-->
-<!--                        <manifest>-->
-<!--                            <addClasspath>true</addClasspath>-->
-<!--                            <mainClass>org.DBAgentServer</mainClass>-->
-<!--                        </manifest>-->
-<!--                    </archive>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
+            <!--            <plugin>-->
+            <!--                <groupId>org.apache.maven.plugins</groupId>-->
+            <!--                <artifactId>maven-jar-plugin</artifactId>-->
+            <!--                <version>3.2.0</version>-->
+            <!--                <configuration>-->
+            <!--                    <archive>-->
+            <!--                        <manifest>-->
+            <!--                            <addClasspath>true</addClasspath>-->
+            <!--                            <mainClass>org.DBAgentServer</mainClass>-->
+            <!--                        </manifest>-->
+            <!--                    </archive>-->
+            <!--                </configuration>-->
+            <!--            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
@@ -99,7 +98,8 @@
                         </goals>
                         <configuration>
                             <transformers>
-                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                <transformer
+                                        implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>org.DBAgentServer</mainClass>
                                 </transformer>
                             </transformers>
@@ -109,7 +109,6 @@
             </plugin>
         </plugins>
     </build>
-
 
 
 </project>

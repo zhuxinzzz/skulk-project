@@ -45,6 +45,7 @@ public class WebSocketServer2 {
                             null, true));
                     //pipeline.addLast(new WebSocketServerHandler());
 
+                    //离线消息处理器
 //                    ch.pipeline().addLast(new OfflineMessageProcessing());
                     //消息转发处理器
 //                    ch.pipeline().addLast("im", new MyWebSocketServerHandler());

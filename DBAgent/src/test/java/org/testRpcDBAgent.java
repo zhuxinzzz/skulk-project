@@ -22,9 +22,16 @@ public class testRpcDBAgent {
     RegistryConfig registryConfig = new RegistryConfig("zookeeper://s1:2181");
 
     @Test
+    public void testPublishAllRPCServices() {
+        rpcDBAgent.publishAllServices();
+
+    }
+
+    @Test
     public void testPublishAllService2() {
-        new Thread(() -> testReleaseGetFilenameService()).start();
-//        new Thread(() -> testPublishGetOfflineMessageRecordingService()).start();
+        new Thread(() -> rpcDBAgent.publishQueryUserOfflineMessageRecordService()).start();
+        new Thread(() -> rpcDBAgent.publishProvidesMessageStoreFilenameService()).start();
+
         System.out.println("dubbo service started......");
         try {
             new CountDownLatch(1).await();
@@ -33,20 +40,19 @@ public class testRpcDBAgent {
         }
     }
 
+
     @Test
     public void testPublishAllService() {
-//        ServiceConfig<IUserOfflineMessageQueryService> serviceConfig = new ServiceConfig<>();
-//        serviceConfig.setInterface(IUserOfflineMessageQueryService.class);
-//        serviceConfig.setRef(new UserOfflineMessageQueryServiceImpl());
-//
-//        serviceConfig.setApplication(applicationConfig);
-//        serviceConfig.setRegistry(registryConfig);
-//        serviceConfig.export();
+        ServiceConfig<IUserOfflineMessageQueryService> serviceConfig = new ServiceConfig<>();
+        serviceConfig.setInterface(IUserOfflineMessageQueryService.class);
+        serviceConfig.setRef(new UserOfflineMessageQueryServiceImpl());
+        serviceConfig.setApplication(applicationConfig);
+        serviceConfig.setRegistry(registryConfig);
+        serviceConfig.export();
 
         ServiceConfig<IMessageStoreService> service = new ServiceConfig<>();
         service.setInterface(IMessageStoreService.class);
         service.setRef(new IMessageStoreServiceImpl());
-
         service.setApplication(applicationConfig);
         service.setRegistry(registryConfig);
         service.export();

@@ -13,7 +13,6 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.codec.http.websocketx.extensions.compression.WebSocketServerCompressionHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
 import org.messageServer.channelHandler.Auth;
-import org.messageServer.channelHandler.messageForwardingWebSocketServerHandler;
 
 public class WebSocketServer {
     public static void main(String[] args) throws InterruptedException {
@@ -45,7 +44,7 @@ public class WebSocketServer {
                     //pipeline.addLast(new WebSocketServerHandler());
 
                     //消息转发处理器
-                    ch.pipeline().addLast("im", new messageForwardingWebSocketServerHandler());
+//                    ch.pipeline().addLast("im", new messageForwardingWebSocketServerHandler());
 //                    ch.pipeline().addLast( new WebSocketServerHandler());
                 }
             });

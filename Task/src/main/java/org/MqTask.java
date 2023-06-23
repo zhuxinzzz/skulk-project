@@ -17,13 +17,9 @@ import java.util.Properties;
  * @Date 19/06/2023
  */
 public class MqTask {
-    public void consumerMessagesAreWrittenToTheFileSystem() {
+    public void startTheConsumerToWriteTextToTheFilesystem() {
         new Thread(() -> consumerMessagesAreWrittenToTheFileSystem1()).run();
     }
-
-
-
-
 
     public void consumerMessagesAreWrittenToTheFileSystem1() {
         Properties props = new Properties();
