@@ -12,11 +12,12 @@ import java.util.Properties;
  */
 public class MqIM {
     public static void productionWritesChatFileMessages(String userName, String content) {
-        productionWritesChatFileMessages1(userName, content);
+        MqIM mqIM = new MqIM();
+        mqIM.productionWritesChatFileMessages1(userName, content);
 //        new Thread(() -> productionWritesChatFileMessages1(userName, content)).start();
     }
 
-    static void productionWritesChatFileMessages1(String userName, String content) {
+    void productionWritesChatFileMessages1(String userName, String content) {
         Properties props = new Properties();
         //broker地址
         props.put("bootstrap.servers", "s1:9092");
@@ -33,9 +34,11 @@ public class MqIM {
         props.put("value.serializer",
                 "org.apache.kafka.common.serialization.StringSerializer");
         Producer<String, String> producer = new KafkaProducer<>(props);
-        /*messagePersistence*/
+
         producer.send(new ProducerRecord<String, String>(
                 "saveFile", userName, content));
+        System.out.println("send message to kafka");
+        System.out.println(content);
     }
 
     void saveOfflineMessages(String fileName, String content) {

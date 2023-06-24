@@ -9,10 +9,11 @@ public class TaskServer {
     public static void main(String[] args) {
 //        TaskServer taskServer = new TaskServer();
         /*发布接口*/
-        RpcTask rpcTask = new RpcTask();
-        rpcTask.publishAllServices();
-
+//        RpcTask rpcTask = new RpcTask();
+//        rpcTask.publishAllServices();
+        /*start consumer*/
         MqTask mqTask = new MqTask();
+        mqTask.startTheConsumerToWriteTextToTheFilesystem();
 
 //        taskServer.publishCheckOfflineMessageFunction();
 //        taskServer.publishAServiceForGettingOfflineMessages();

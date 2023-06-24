@@ -29,7 +29,8 @@ public class testMessageForwarding {
 //        System.out.println("produced");
 
         while (true) {
-            MqIM.productionWritesChatFileMessages1("didn't work", cliMessage);
+            MqIM mqIM = new MqIM();
+            mqIM.productionWritesChatFileMessages1("didn't work", cliMessage);
             System.out.println(cliMessage);
             System.out.println("produced");
             Thread.sleep(1000);

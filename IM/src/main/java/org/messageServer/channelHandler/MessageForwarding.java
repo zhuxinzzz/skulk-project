@@ -34,24 +34,25 @@ public class MessageForwarding extends SimpleChannelInboundHandler<WebSocketFram
         System.out.print("message forwarding.\t");
         System.out.println("Client connected: " + ctx.channel().remoteAddress());
 
+        ClientMessage clientMessage;
         if (frame instanceof TextWebSocketFrame) { // 此处仅处理 Text Frame
             String requestText = ((TextWebSocketFrame) frame).text();
+            System.out.println("requestText: " + requestText);
 
-            ClientMessage clientMessage = GSON.fromJson(requestText, ClientMessage.class);
+            clientMessage = GSON.fromJson(requestText, ClientMessage.class);
             String date = clientMessage.getDate();
             String toUserId = clientMessage.getToUserId();
             String fromUserId = clientMessage.getFromUserId();
-            String msg = clientMessage.getContent();
+            String content = clientMessage.getContent();
+
+            System.out.println(clientMessage.toString());
 
             Channel toChannel = SessionUtil.getChannel(clientMessage.getToUserId());
             if (toChannel == null) {
                 ClientMessage clientMessage1 = new ClientMessage(
-                        date, toUserId, fromUserId, "对方未在线" + msg);
+                        date, toUserId, fromUserId, "对方未在线" + content);
                 TextWebSocketFrame textWebSocketFrame = new TextWebSocketFrame(GSON.toJson(clientMessage1));
                 ctx.channel().writeAndFlush(textWebSocketFrame);
-
-                /**/
-                saveMessage(clientMessage);
 
                 //Task，存储离线消息
                 //the file name is obtained from redis
@@ -66,10 +67,14 @@ public class MessageForwarding extends SimpleChannelInboundHandler<WebSocketFram
             } else {
                 toChannel.writeAndFlush(new TextWebSocketFrame(requestText));
             }
+            /**/
+            saveMessage(clientMessage);
         }
     }
 
     private void saveMessage(ClientMessage clientMessage) {
+        System.out.println("saveMessage");
+        System.out.println(clientMessage.toString());
         String messageString = GSON.toJson(clientMessage);
         MqIM.productionWritesChatFileMessages("didn't work", messageString);
     }

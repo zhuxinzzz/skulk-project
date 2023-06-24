@@ -10,6 +10,7 @@ import org.pojo.MessageLine;
 
 import java.time.Duration;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Properties;
 
 /**
@@ -17,6 +18,18 @@ import java.util.Properties;
  * @Date 19/06/2023
  */
 public class MqTask {
+    static HashMap<String, String> hashMapUserNameFileName = new HashMap<>();
+
+    public String getFilename(String userName) {
+        String fileName = hashMapUserNameFileName.get(userName);
+        if (fileName == null) {
+            fileName = new RpcTask().getUserOfflineMessageStorageFile(userName);
+            hashMapUserNameFileName.put(userName, fileName);
+        }
+        return fileName;
+
+    }
+
     public void startTheConsumerToWriteTextToTheFilesystem() {
         new Thread(() -> consumerMessagesAreWrittenToTheFileSystem1()).run();
     }
@@ -26,7 +39,7 @@ public class MqTask {
 //		props.put("bootstrap.servers", "slave1:9092,slave2:9092,slave3:9092");
         props.put("bootstrap.servers", "s1:9092");
         //每个消费者分配独立的组号
-        props.put("group.id", "g1");
+        props.put("group.id", "test");
         //如果value合法，则自动提交偏移量
         props.put("enable.auto.commit", "true");
         //设置多久一次更新被消费消息的偏移量
@@ -58,9 +71,9 @@ public class MqTask {
                 String fromUserId = clientMessage.getFromUserId();
                 System.out.println("fromUserId:" + fromUserId);
 
-                RpcTask rpcTask = new RpcTask();
+
                 /*从DBAgent，获取文件名。*/
-                String fileName = rpcTask.getUserOfflineMessageStorageFile(fromUserId);
+                String fileName = getFilename(fromUserId);
                 System.out.println("fileName:" + fileName);
 
                 MessageLine messageLine = new MessageLine(clientMessage.getDate(), clientMessage.getToUserId(),

@@ -35,7 +35,10 @@ public class RpcTask {
      * publish all dubbo service.
      */
     public void publishAllServices() {
+        /**/
         new Thread(() -> publishAServiceForGettingOfflineMessages()).run();
+        /**/
+//        new Thread(() -> publishCheckOfflineMessageFunction()).run();
     }
 
     /**
@@ -43,7 +46,7 @@ public class RpcTask {
      *
      * @see org.l2Service.serviceImlp.UserOfflineMessageServiceImpl
      */
-    private void publishAServiceForGettingOfflineMessages() {
+    public void publishAServiceForGettingOfflineMessages() {
         //rpc service provider
         protocolConfig.setPort(20890);
         /*服务配置*/
@@ -64,7 +67,7 @@ public class RpcTask {
     }
 
     /**
-     * publish all dubbo service.
+     * publish dubbo service.
      *
      * @see org.l2Service.serviceImlp.UserOfflineMessageServiceImpl
      */
