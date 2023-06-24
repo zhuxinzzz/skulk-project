@@ -1,0 +1,9 @@
+spring:
+  redis:
+    database: 0
+    host: s1
+    port: 6379
+  datasource:
+    url: ""
+    data-username: root
+    password: "QwErmysql1"!

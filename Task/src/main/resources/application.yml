@@ -1,0 +1,28 @@
+spring:
+#  profiles:
+#    active: dev
+#  application:
+#    name: grpc-demo-server
+  datasource:
+    name: dev
+    url: jdbc:mysql://s1:3306/skulk?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+    username: root
+    password: QwErmysql1!
+  kafka:
+    bootstrap-servers: 8.130.83.131:29092
+    consumer:
+      group-id: test-consumer-group
+#    druid:
+#      #         driver-class-name: com.mysql.jdbc.Driver
+#      driver-class-name: com.mysql.cj.jdbc.Driver
+#      initial-size: 1
+#      max-active: 20
+#      min-idle: 1
+#      max-wait: 60000
+#      pool-prepared-statements: false
+#      validation-query: select 'x'
+#      test-on-borrow: false
+#      test-on-return: false
+#      test-while-idle: true
+#      time-between-eviction-runs-millis: 60000
+#      min-evictable-idle-time-millis: 300000

@@ -1,0 +1,6 @@
+spring:
+  datasource:
+#    data-username: root
+#    data-password: QwErmysql1!
+  kafka:
+    bootstrap-servers: s1:29092
