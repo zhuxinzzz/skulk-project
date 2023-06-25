@@ -7,13 +7,14 @@
     <groupId>org.game.skulk</groupId>
     <artifactId>skulk-project</artifactId>
     <version>1.0-SNAPSHOT</version>
+
     <packaging>pom</packaging>
 
     <modules>
         <module>IM</module>
         <module>Task</module>
         <module>DBAgent</module>
-        <module>skulk-api</module>
+<!--        <module>skulk-api</module>-->
     </modules>
     <!--spring-boot==============================================-->
     <!--    <parent>-->
